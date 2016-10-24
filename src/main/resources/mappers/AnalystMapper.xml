@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.caimao.dao.AnalystDao" >
+  <resultMap id="BaseResultMap" type="com.caimao.entity.AnalystEntity">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="SMALLINT" />
+    <result column="analyst_name" property="analystName" jdbcType="VARCHAR" />
+    <result column="analyst_type" property="analystType" jdbcType="SMALLINT" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, icon, client_id, analyst_name, analyst_type, introduction, created
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from gjs_analyst
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gjs_analyst
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.caimao.entity.AnalystEntity" useGeneratedKeys="true" keyProperty="id">
+    insert into gjs_analyst
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="analystName != null" >
+        analyst_name,
+      </if>
+      <if test="analystType != null" >
+        analyst_type,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=SMALLINT},
+      </if>
+      <if test="analystName != null" >
+        #{analystName,jdbcType=VARCHAR},
+      </if>
+      <if test="analystType != null" >
+        #{analystType,jdbcType=SMALLINT},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caimao.entity.AnalystEntity" >
+    update gjs_analyst
+    <set >
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=SMALLINT},
+      </if>
+      <if test="analystName != null" >
+        analyst_name = #{analystName,jdbcType=VARCHAR},
+      </if>
+      <if test="analystType != null" >
+        analyst_type = #{analystType,jdbcType=SMALLINT},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryAnalystlist" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from gjs_analyst ORDER BY created DESC
+  </select>
+</mapper>
